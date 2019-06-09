@@ -1,0 +1,102 @@
+﻿/* Estilo de Tabla */
+table.table thead tr th {
+    background: #001c43;
+    color: white;
+}
+
+.pagination a {
+    color: #001c43;
+}
+
+table.table tbody tr:nth-child(even) {
+    background: #EEE;
+}
+
+table.table tbody tr:nth-child(odd) {
+    background: none;
+}
+
+table.table th, table.table td {
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #DDD;
+}
+
+table.table {
+    border: 1px solid #b9b4b4; /*#DDD*/
+    margin-bottom: 0px;
+}
+
+.pagination-container {
+    text-align: right;
+}
+
+table.table tbody tr td a {
+    color: black;
+}
+
+table.table thead th.actionLink {
+    width: 35px;
+}
+
+
+legend.scheduler-border {
+    width: inherit; /* Or auto */
+    padding: 0 10px; /* To give a bit of padding on the left and right */
+    border-bottom: none;
+}
+
+.text-on-pannel {
+    background: #fff none repeat scroll 0 0;
+    height: auto;
+    padding: 3px 5px;
+    position: absolute;
+    margin-top: -47px;
+}
+
+.panel {
+    /* for text on pannel */
+    margin-top: 27px !important;
+}
+
+.panel-body {
+    padding-top: 30px !important;
+}
+
+.panel-primary {
+    border-color: #b9b4b4 !important;
+}
+
+.text-primary {
+    color: #001c43 !important;
+    font-size: 13px;
+}
+
+.btn-dark {
+    color: #ffffff;
+    background-color: #001c43;
+    border-color: #ffffff;
+}
+
+    .btn-dark:hover, .btn-dark:focus {
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+.margin-20 {
+    margin-right: 20px;
+}
+
+.margin-botton-10 {
+    margin-bottom: 10px;
+}
+
+.margin-botton-2 {
+    margin-bottom: 2px;
+}
+
+.dataTables_empty {
+    text-align: center !important;
+}

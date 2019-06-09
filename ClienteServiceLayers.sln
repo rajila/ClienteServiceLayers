@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientWeb", "ClientWeb\Clie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServiceWeb", "WebServiceWeb\WebServiceWeb.csproj", "{7FCFC781-F11D-40CD-B521-239172EB057C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entidades", "Entidades\Entidades.csproj", "{C7906C14-D198-4827-AC2C-901659EA788F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{7FCFC781-F11D-40CD-B521-239172EB057C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FCFC781-F11D-40CD-B521-239172EB057C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FCFC781-F11D-40CD-B521-239172EB057C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7906C14-D198-4827-AC2C-901659EA788F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7906C14-D198-4827-AC2C-901659EA788F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7906C14-D198-4827-AC2C-901659EA788F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7906C14-D198-4827-AC2C-901659EA788F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
