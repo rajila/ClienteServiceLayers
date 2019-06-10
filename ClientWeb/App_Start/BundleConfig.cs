@@ -29,6 +29,18 @@ namespace ClientWeb
 
             bundles.Add(new StyleBundle("~/Content/custom").Include(
                       "~/Content/Custom.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/datapicker").Include(
+                      "~/Scripts/jquery.datetimepicker.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/datapicker-php").Include(
+                      "~/Scripts/php-date-formatter.min.js"));
+
+            bundles.Add(new StyleBundle("~/Content/datapicker").Include(
+                      "~/Content/jquery.datetimepicker.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/file-task").Include(
+                        "~/Scripts/Business/Task/*.js"));
         }
     }
 }
