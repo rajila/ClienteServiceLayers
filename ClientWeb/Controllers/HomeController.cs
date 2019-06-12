@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using PagedList;
+using System.Net;
 
 namespace ClientWeb.Controllers
 {
@@ -69,12 +70,14 @@ namespace ClientWeb.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
+            Entidades.Entidades.TareaForm _dataClient = new Entidades.Entidades.TareaForm();
+            ViewBag._statusSave = true;
+            ViewBag._messageSave = "OK";
+
             try
             {
                 if (ModelState.IsValid)
                 {
-                    return View();
-                    Entidades.Entidades.TareaForm _dataClient = new Entidades.Entidades.TareaForm();
                     _dataClient.id_tarea = Convert.ToInt64(collection["id_tarea"]);
                     _dataClient.id_status_ini = Convert.ToInt64(collection["id_status_ini"]);
                     _dataClient.nombre_tomador = Convert.ToString(collection["nombre_tomador"]);
@@ -88,7 +91,9 @@ namespace ClientWeb.Controllers
                     if (_keysInt.Count() == 0)
                     {
                         // Mirar como mostrar error en el campo
-                        return View();
+                        ViewBag._statusSave = false;
+                        ViewBag._messageSave = "Error, debe ingresar al menos un Asegurado";
+                        return View(_dataClient);
                     }
 
                     foreach (var item in _keysInt)
@@ -97,32 +102,75 @@ namespace ClientWeb.Controllers
                         _data.id_asegurado = 0;
                         _data.nombre = Convert.ToString(collection["nombreDATA_" + item]);
                         _data.dni = Convert.ToString(collection["dniDATA_" + item]);
-                        _data.telefono = Convert.ToInt64(collection["telefonoDATA_" + item]);
+                        if( !String.IsNullOrEmpty(collection["telefonoDATA_" + item]) ) _data.telefono = Convert.ToInt64(collection["telefonoDATA_" + item]);
                         _data.llamar_asegurado = Convert.ToString(collection["llamarDATA_" + item]);
                         _data.fecha_hora = Convert.ToString(collection["fechaDATA_" + item]);
                         //_data.fecha_hora = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
                         _listAsegurados.Add(_data);
                     }
                     _dataClient.asegurados = _listAsegurados;
-                    //Entidades.WebService.AegonCarga _dataAegonWS = new Entidades.WebService.AegonCarga(_dataClient);
-                    //AccesoDatos.WebServiceAegon _bridgeAegonWS = new AccesoDatos.WebServiceAegon();
-                    //var _responseWS = _bridgeAegonWS.saveData(_dataAegonWS);
-
-                    // Mostrar mensaje en la pantalla de inicio
-
-                    //db.programa.Add(programa);
-                    //db.SaveChanges();
-                    return RedirectToAction("Index");
+                    //////Entidades.WebService.AegonCarga _dataAegonWS = new Entidades.WebService.AegonCarga(_dataClient);
+                    //////AccesoDatos.WebServiceAegon _bridgeAegonWS = new AccesoDatos.WebServiceAegon();
+                    //////var _responseWS = _bridgeAegonWS.saveData(_dataAegonWS);
+                    //return RedirectToAction("Index");
                 }
+            }catch {
+                ViewBag._statusSave = false;
+                ViewBag._messageSave = "Error, por favor intentarlo mas tarde";
+            }
 
-                //return View(programa);
-                return View();
-            }
-            catch
-            {
-                return View();
-            }
+            return View(_dataClient);
         }
 
+        // GET: Tarea/Edit/5
+        public ActionResult Edit(long? id)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Entidades.Entidades.TareaForm _tarea = new Entidades.Entidades.TareaForm();
+            _tarea.id_tarea = 1;
+            _tarea.status_ini = "INI";
+            _tarea.id_status_ini = 1;
+            _tarea.status_now = "INI";
+            _tarea.id_status_fin = 1;
+            _tarea.nombre_tomador = "Ronald";
+            _tarea.dni_tomador = "1104537574";
+            _tarea.telefono_tomador = 12345678;
+            _tarea.id_tomador = 1;
+            _tarea.fecha = "11/06/2019 16:50";
+
+            List<Entidades.Entidades.AseguradoForm> _listAsegurado = new List<Entidades.Entidades.AseguradoForm> ();
+            Entidades.Entidades.AseguradoForm _dataOne = new Entidades.Entidades.AseguradoForm();
+            _dataOne.id_asegurado = 1;
+            _dataOne.nombre = "Thalia";
+            _dataOne.dni = "12345";
+            _dataOne.telefono = 32424325;
+            _dataOne.llamar_asegurado = "SI";
+            _dataOne.fecha_hora = "20/06/2019 16:50";
+            _listAsegurado.Add(_dataOne);
+
+            Entidades.Entidades.AseguradoForm _dataTwo = new Entidades.Entidades.AseguradoForm();
+            _dataTwo.id_asegurado = 1;
+            _dataTwo.nombre = "Mary";
+            _dataTwo.dni = "454654";
+            _dataTwo.telefono = 56546646;
+            _dataTwo.llamar_asegurado = "SI";
+            _dataTwo.fecha_hora = "21/06/2019 16:50";
+            _listAsegurado.Add(_dataTwo);
+
+            _tarea.asegurados = _listAsegurado;
+
+            List<SelectListItem> _items = new List<SelectListItem>();
+            _items.Add(new SelectListItem { Text = "Seleccionar", Value = "" });
+            _items.Add(new SelectListItem { Text = "SI", Value = "1" });
+            _items.Add(new SelectListItem { Text = "NO", Value = "0" });
+
+            ViewBag._dataState = _items;
+
+
+            if (_tarea == null) return HttpNotFound();
+
+            return View(_tarea);
+        }
     }
 }

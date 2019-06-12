@@ -35,8 +35,9 @@ namespace Entidades.Entidades
         [Display(Name = "lbl_nombre_tomador")]
         public string nombre_tomador { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El DNI del tomador es obligatorio")]
         [Display(Name = "lbl_dni_tomador")]
+        [StringLength(maximumLength: 5, ErrorMessage = "Prueba de error, maximo 5 caracteres")]
         public string dni_tomador { get; set; }
 
         [Required]

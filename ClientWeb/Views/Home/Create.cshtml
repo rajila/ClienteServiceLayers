@@ -15,8 +15,17 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>TareaForm</h4>
     <hr />
+
+    @if ( ViewBag._statusSave != null ){
+        <div class="alert alert-danger alert-dismissible show" role="alert">
+            <strong>@ViewBag._messageSave</strong> 
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(model => model.id_tarea, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -26,7 +35,7 @@
         </div>
     </div>
 
-    
+
 
     <div class="form-group">
         @Html.LabelFor(model => model.id_status_ini, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -36,7 +45,7 @@
         </div>
     </div>
 
-    
+
 
     <div class="form-group">
         @Html.LabelFor(model => model.nombre_tomador, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -62,39 +71,39 @@
         </div>
     </div>
 
-    <br/>
+    <br />
 
     <div class="listAsegurado1">
-            <table id="idTableAsegurado" class="table">
-                <thead>
-                    <tr>
-                        <th class="width-160">DNI</th>
-                        <th>Nombre</th>
-                        <th class="width-160">Teléfono asegurado</th>
-                        <th class="width-140">Llamar asegurado</th>
-                        <th class="width-160">Fecha llamada</th>
-                        <th class="width-50"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td valign="top" colspan="10" class="dataTables_empty">No existe información para presentar</td></tr>
-                </tbody>
-            </table>
-            <div class="form-row text-left margin-top-2">
-                <button id="btnAddElementTable" type="button" class="btn btn-dark">
-                    <span class="glyphicon glyphicon-plus"></span> Asegurado
-                </button>
-            </div>
+        <table id="idTableAsegurado" class="table">
+            <thead>
+                <tr>
+                    <th class="width-160">DNI</th>
+                    <th>Nombre</th>
+                    <th class="width-160">Teléfono asegurado</th>
+                    <th class="width-140">Llamar asegurado</th>
+                    <th class="width-160">Fecha llamada</th>
+                    <th class="width-50"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td valign="top" colspan="10" class="dataTables_empty">No existe información para presentar</td></tr>
+            </tbody>
+        </table>
+        <div class="form-row text-left margin-top-2">
+            <button id="btnAddElementTable" type="button" class="btn btn-dark">
+                <span class="glyphicon glyphicon-plus"></span> Asegurado
+            </button>
         </div>
-        
-        <br/>
+    </div>
 
-        <div class="form-group text-center">
-            <div class="col-md-offset-2 col-md-10">
-                @Html.ActionLink("Atrás", "Index", null, new { @class = "btn btn-primary" })
-                <input type="submit" value="Guardar" class="btn btn-primary" />
-            </div>
+    <br />
+
+    <div class="form-group text-center">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.ActionLink("Atrás", "Index", null, new { @class = "btn btn-primary" })
+            <input type="submit" value="Guardar" class="btn btn-primary" />
         </div>
+    </div>
 </div>
 }
 

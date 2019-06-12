@@ -28,8 +28,12 @@
         {
             var _elementTD = $("<td>");
             if (this.elementsTable[_element] === 'llamarDATA') {
-                var _elementINPUT = $("<select><option value=''>Seleccionar</option><option value='SI'>SI</option ><option value='NO'>NO</option></select>");
-                _elementINPUT.attr('class', 'form-control');
+                //var _elementINPUT = $("<select><option value=''>Seleccionar</option><option value='SI'>SI</option ><option value='NO'>NO</option></select>");
+                //_elementINPUT.attr('class', 'form-control');
+                var _elementINPUT = $("<input readonly>");
+                _elementINPUT.attr('type', 'text');
+                _elementINPUT.attr('class', 'form-control text-box single-line');
+                _elementINPUT.attr('value','SI');
             } else if (this.elementsTable[_element] === 'telefonoDATA') {
                 var _elementINPUT = $("<input>");
                 _elementINPUT.attr('type', 'number');
@@ -37,6 +41,7 @@
             } else if (this.elementsTable[_element] === 'fechaDATA') {
                 var _elementINPUT = $("<input>");
                 _elementINPUT.attr('type', 'text');
+                _elementINPUT.attr('autocomplete', 'off');
                 _elementINPUT.attr('class', 'form-control text-box single-line');
                 _elementINPUT.datetimepicker({language: "es",formatTime: 'H:i',formatDate: 'd/m/Y',format: 'd/m/Y H:i'});
             } else {

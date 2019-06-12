@@ -22,6 +22,7 @@ namespace Entidades.Entidades
 
         [Required]
         [Display( Name = "lbl_telefono_asegurado")]
+        [MaxLength(2, ErrorMessage ="Se permite como maximo 2 digitos")]
         public long telefono { get; set; }
 
         [Required]
@@ -30,7 +31,7 @@ namespace Entidades.Entidades
 
         [Required]
         [Display(Name = "lbl_fechahora")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public string fecha_hora { get; set; }
     }
