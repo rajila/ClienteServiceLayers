@@ -12,6 +12,14 @@ table.table tbody tr:nth-child(even) {
     background: #EEE;
 }
 
+table#idTableAseguradoE tbody tr:nth-child(even) {
+    background: white;
+}
+
+table#idTableAseguradoE {
+    border-collapse: inherit;
+}
+
 table.table tbody tr:nth-child(odd) {
     background: none;
 }
@@ -61,12 +69,25 @@ legend.scheduler-border {
     margin-top: 27px !important;
 }
 
+td div.panel {
+    /* for text on pannel */
+    margin-top: 0px !important;
+}
+
 .panel-body {
     padding-top: 30px !important;
 }
 
 .panel-primary {
     border-color: #b9b4b4 !important;
+}
+
+td div.panel-primary {
+    border-color: #428bca; !important;
+}
+
+td div.panel {
+    border: 0px solid transparent;
 }
 
 .text-primary {
@@ -127,4 +148,20 @@ table.table tbody tr td input {
 
 .width-50 {
     width: 50px;
+}
+
+.width-40 {
+    width: 40px;
+}
+
+.margin-botton-5 {
+    margin-bottom: 5px;
+}
+
+.validation-summary-errors {
+    margin-top:5px;
+}
+
+.showRow {
+    display:table-row;
 }

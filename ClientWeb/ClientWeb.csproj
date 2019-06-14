@@ -153,6 +153,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidatorCustom\TelefonoValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
@@ -172,6 +173,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Business\Task\AseguradoEdit.js" />
     <Content Include="Scripts\Business\Task\DataTableAsegurado.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -185,6 +187,7 @@
     <Content Include="Scripts\php-date-formatter.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Validations\telefonovalidator.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -228,6 +231,10 @@
     <ProjectReference Include="..\Entidades\Entidades.csproj">
       <Project>{c7906c14-d198-4827-ac2c-901659ea788f}</Project>
       <Name>Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Validations\Validations.csproj">
+      <Project>{06cbbb15-0c72-44d5-83d3-2dc0e48db7fe}</Project>
+      <Name>Validations</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

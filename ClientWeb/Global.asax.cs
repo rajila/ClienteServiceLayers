@@ -16,6 +16,8 @@ namespace ClientWeb
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(Validations.TelefonoAttribute), typeof(ValidatorCustom.TelefonoValidator));
         }
     }
 }

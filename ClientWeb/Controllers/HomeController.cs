@@ -6,6 +6,8 @@ using System.Web.Mvc;
 
 using PagedList;
 using System.Net;
+using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace ClientWeb.Controllers
 {
@@ -13,6 +15,14 @@ namespace ClientWeb.Controllers
     {
         public ActionResult Index(string name, string currentFilter, int? page)
         {
+            // Valores definidos en la acción Save
+            ViewBag._statusSave = TempData["_statusSave"];
+            if (ViewBag._statusSave != null && ViewBag._statusSave)
+            {
+                var _task = (Entidades.Entidades.TareaForm)TempData["_taskSave"];
+                ViewBag._messageSave = "El registro se guardo exitosamente: "+" ID Tarea "+_task.id_tarea;
+            }
+
             //AccesoDatos.WebServiceL _serviceBridge = new AccesoDatos.WebServiceL();
             //var _data = _serviceBridge.getMessage("Ronald Daniel");
             //var _suma = _serviceBridge.suma(4,5);
@@ -74,15 +84,27 @@ namespace ClientWeb.Controllers
             ViewBag._statusSave = true;
             ViewBag._messageSave = "OK";
 
+            // Set los valores en el Modelo
+            TryUpdateModel(_dataClient);
+
+            var _statusAsegurado = true;
+            Entidades.Entidades.AseguradoForm _rowAsegurado = null;
+            var _countRowA = 0;
+            List<ValidationResult> _validationResultsTmp = null;
+
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _dataClient.id_tarea = Convert.ToInt64(collection["id_tarea"]);
-                    _dataClient.id_status_ini = Convert.ToInt64(collection["id_status_ini"]);
-                    _dataClient.nombre_tomador = Convert.ToString(collection["nombre_tomador"]);
-                    _dataClient.dni_tomador = Convert.ToString(collection["dni_tomador"]);
-                    _dataClient.telefono_tomador = Convert.ToInt64(collection["telefono_tomador"]);
+                    //_dataClient.id_tarea = Convert.ToInt64(collection["id_tarea"]);
+                    //_dataClient.id_status_ini = Convert.ToInt64(collection["id_status_ini"]);
+                    //_dataClient.nombre_tomador = Convert.ToString(collection["nombre_tomador"]);
+                    //_dataClient.dni_tomador = Convert.ToString(collection["dni_tomador"]);
+                    //_dataClient.telefono_tomador = Convert.ToInt64(collection["telefono_tomador"]);
+
+                    var validationResults = new List<ValidationResult>();
+                    ValidationContext contexts = new ValidationContext(_dataClient, null, null);
+                    var isValid = Validator.TryValidateObject(_dataClient, contexts, validationResults, true);
 
                     List<Entidades.Entidades.AseguradoForm> _listAsegurados = new List<Entidades.Entidades.AseguradoForm>();
                     var _keys = collection.AllKeys.Where(_element => (_element.Contains("dniDATA_") || _element.Contains("nombreDATA_") || _element.Contains("telefonoDATA_") || _element.Contains("llamarDATA_") || _element.Contains("fechaDATA_"))).ToArray();
@@ -102,17 +124,58 @@ namespace ClientWeb.Controllers
                         _data.id_asegurado = 0;
                         _data.nombre = Convert.ToString(collection["nombreDATA_" + item]);
                         _data.dni = Convert.ToString(collection["dniDATA_" + item]);
-                        if( !String.IsNullOrEmpty(collection["telefonoDATA_" + item]) ) _data.telefono = Convert.ToInt64(collection["telefonoDATA_" + item]);
+                        if (!String.IsNullOrEmpty(collection["telefonoDATA_" + item])) _data.telefono = Convert.ToInt64(collection["telefonoDATA_" + item]);
+                        //else _data.telefono = -1;
                         _data.llamar_asegurado = Convert.ToString(collection["llamarDATA_" + item]);
                         _data.fecha_hora = Convert.ToString(collection["fechaDATA_" + item]);
                         //_data.fecha_hora = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
                         _listAsegurados.Add(_data);
                     }
                     _dataClient.asegurados = _listAsegurados;
+
+                    // Guardamos el listado de asegurados en JSON para pasar a la vista
+                    ViewBag._aseguradoJSON = JsonConvert.SerializeObject(_listAsegurados);
+
+                    // Validar los campos del asegurado
+                    foreach (var _element in _dataClient.asegurados)
+                    {
+                        _countRowA++;
+                        var _validationResults = new List<ValidationResult>();
+                        ValidationContext _contexts = new ValidationContext(_element, null, null);
+                        var _isValid = Validator.TryValidateObject(_element, _contexts, _validationResults, true);
+                        if (!_isValid)
+                        {
+                            _statusAsegurado = false;
+                            _rowAsegurado = _element;
+                            _validationResultsTmp = _validationResults;
+                            break;
+                        }
+                    }
+
+                    // Existe un asegurado que no cumple con las validaciones
+                    if (!_statusAsegurado)
+                    {
+                        //var messages = _validationResultsTmp.Select(r => r.ErrorMessage).ToList().Aggregate((message, nextMessage) => message + "\n" + nextMessage);
+                        var _messages = _validationResultsTmp.Select(_el => _el.ErrorMessage).ToList();
+                        ViewBag._statusSave = false;
+                        ViewBag._messageSave =  "Error Asegurado # " + _countRowA + " :";
+                        ViewBag._messageSaveBody = _messages;
+
+                        return View(_dataClient);
+                    }
+
                     //////Entidades.WebService.AegonCarga _dataAegonWS = new Entidades.WebService.AegonCarga(_dataClient);
                     //////AccesoDatos.WebServiceAegon _bridgeAegonWS = new AccesoDatos.WebServiceAegon();
                     //////var _responseWS = _bridgeAegonWS.saveData(_dataAegonWS);
-                    //return RedirectToAction("Index");
+
+                    // Mostrar mensaje en la pantalla de inicio
+                    TempData["_statusSave"] = true;
+                    TempData["_taskSave"] = _dataClient;
+
+                    return RedirectToAction("Index");
+                } else {
+                    ViewBag._statusSave = false;
+                    ViewBag._messageSave = "Hay campos vacíos";
                 }
             }catch {
                 ViewBag._statusSave = false;
@@ -171,6 +234,31 @@ namespace ClientWeb.Controllers
             if (_tarea == null) return HttpNotFound();
 
             return View(_tarea);
+        }
+
+        [HttpPost]
+        public JsonResult AjaxPostCallHistory(Entidades.Entidades.HistoricoTareaJSON historico)
+        {
+            List<Entidades.Entidades.AseguradoForm> _listAsegurado = new List<Entidades.Entidades.AseguradoForm>();
+            Entidades.Entidades.AseguradoForm _dataOne = new Entidades.Entidades.AseguradoForm();
+            _dataOne.id_asegurado = 1;
+            _dataOne.nombre = "Thalia";
+            _dataOne.dni = "12345";
+            _dataOne.telefono = 32424325;
+            _dataOne.llamar_asegurado = "SI";
+            _dataOne.fecha_hora = "20/06/2019 16:50";
+            _listAsegurado.Add(_dataOne);
+
+            Entidades.Entidades.AseguradoForm _dataTwo = new Entidades.Entidades.AseguradoForm();
+            _dataTwo.id_asegurado = 1;
+            _dataTwo.nombre = "Mary";
+            _dataTwo.dni = "454654";
+            _dataTwo.telefono = 56546646;
+            _dataTwo.llamar_asegurado = "SI";
+            _dataTwo.fecha_hora = "21/06/2019 16:50";
+            _listAsegurado.Add(_dataTwo);
+
+            return Json(_listAsegurado, JsonRequestBehavior.AllowGet);
         }
     }
 }

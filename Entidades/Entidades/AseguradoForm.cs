@@ -22,8 +22,10 @@ namespace Entidades.Entidades
 
         [Required]
         [Display( Name = "lbl_telefono_asegurado")]
-        [MaxLength(2, ErrorMessage ="Se permite como maximo 2 digitos")]
-        public long telefono { get; set; }
+        //[MaxLength(2, ErrorMessage ="Se permite como maximo 2 digitos")]
+        [RegularExpression(@"^(\d{1,9})$", ErrorMessage = "Teléfono: Número de dígitos min: 1 y max 9")]
+        [Validations.Telefono(ErrorMessage = "Telefono no valido")]
+        public long? telefono { get; set; }
 
         [Required]
         [Display(Name = "lbl_llamar_asegurado")]

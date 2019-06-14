@@ -66,8 +66,9 @@
             </div>
         </div>
 
+
         <div class="listAsegurado1">
-            <table id="idTableAsegurado" class="table">
+            <table id="idTableAseguradoE" class="table">
                 <thead>
                     <tr>
                         <th class="width-160">DNI</th>
@@ -75,6 +76,7 @@
                         <th class="width-160">Teléfono asegurado</th>
                         <th class="width-140">Llamar asegurado</th>
                         <th class="width-160">Fecha llamada</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -91,26 +93,49 @@
                                     @Html.TextBoxFor(x => Model.asegurados[i].nombre, new { @class = "form-control", @readonly = "readonly" })
                                 </td>
                                 <td>
-                                    @Html.TextBoxFor(x => Model.asegurados[i].telefono, new { @class = "form-control", @type="number", Name = "telefonoDATA_" + i })
+                                    @Html.TextBoxFor(x => Model.asegurados[i].telefono, new { @class = "form-control", @type = "number", Name = "telefonoDATA_" + i })
                                     @Html.ValidationMessage("telefonoDATA_" + i, "", new { @class = "text-danger" })
                                 </td>
                                 <td>
                                     @Html.TextBoxFor(x => Model.asegurados[i].llamar_asegurado, new { @class = "form-control" })
                                 </td>
                                 <td>
-                                    @Html.TextBoxFor(x => Model.asegurados[i].fecha_hora, new { @class = "form-control" })
+                                    @Html.TextBoxFor(x => Model.asegurados[i].fecha_hora, new { @class = "form-control datepickerasegurado" })
+                                </td>
+                                <td class="width-40 text-center">
+                                    <a id="history_@i" numrow="@i" idasegurado="@Model.asegurados[i].id_asegurado" class="glyphicon glyphicon-eye-open" title="Ver Detalle" onclick="eventHistorial(@i);"></a>
+                                </td>
+                            </tr>
+                            <tr id="rowhistorial_@i" class="hide">
+                                <td valign="top" colspan="10" class="">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">Historial</div>
+                                        <table id="rowtable_@i" class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="width-160">DNI</th>
+                                                    <th>Nombre</th>
+                                                    <th class="width-160">Teléfono asegurado</th>
+                                                    <th class="width-140">Llamar asegurado</th>
+                                                    <th class="width-160">Fecha llamada</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td valign="top" colspan="10" class="dataTables_empty">No existe información para presentar</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </td>
                             </tr>
                         }
                     }
-else
-{
-                <tr><td valign="top" colspan="10" class="dataTables_empty">No existe información para presentar</td></tr>
-}
+                    else
+                    {
+                        <tr><td valign="top" colspan="10" class="dataTables_empty">No existe información para presentar</td></tr>
+                    }
                 </tbody>
             </table>
         </div>
-
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -129,4 +154,11 @@ else
     @Scripts.Render("~/bundles/datapicker-php")
     @Scripts.Render("~/bundles/datapicker")
     @Scripts.Render("~/bundles/file-task")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            TaskEdit.init("idTableAseguradoE","datepickerasegurado");
+        });
+    </script>
 }

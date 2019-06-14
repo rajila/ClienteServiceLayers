@@ -41,6 +41,9 @@ namespace ClientWeb
 
             bundles.Add(new ScriptBundle("~/bundles/file-task").Include(
                         "~/Scripts/Business/Task/*.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/telefonovalidator").Include(
+                        "~/Scripts/Validations/telefonovalidator.js"));
         }
     }
 }
