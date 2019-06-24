@@ -192,7 +192,6 @@ table#idTableAseguradoE table.table thead tr th {
 }
 
 
-/*Nuevo*/
 
 #idTableAseguradoE .panel {
     margin-bottom: 0px;
@@ -200,4 +199,134 @@ table#idTableAseguradoE table.table thead tr th {
 
 #idTableAseguradoE tbody tr.showRow {
     background: #edf5ff !important;
+}
+
+
+body {
+    padding-top: 130px !important;
+}
+
+#navContainer {
+    background: white;
+}
+
+#navMenu {
+    background-color: #001c43;
+}
+
+#navMenu .navbar-nav > li > a, #navMenu .navbar-header > a.navbar-brand  {
+    color: white;
+}
+
+hr.hr_header {
+    border: none;
+    background-color: #F5b400;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 2px;
+    margin: 0px 0px;
+}
+
+a.navbar-brand {
+    /*display:block;*/
+    visibility: hidden;
+}
+
+#navMenu .navbar-collapse {
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+}
+
+#navHeaderTitle {
+    width: 40%;
+    float: left;
+    font-size: 56px;
+    padding-top: 15px;
+}
+
+#navHeaderTitle a {
+    font-size: 46px;
+    color: black;
+    visibility: visible;
+}
+
+#navHeaderUser {
+    width: 60%;
+    float: right;
+    text-align: right;
+    padding-top: 15px;
+}
+
+span.roleTag {
+    font-weight: bold;
+    color: #F5b400;
+}
+
+.bold{
+    font-weight:bold;
+}
+
+.container .copyright {
+    margin-top: 8px;
+    color: white;
+}
+
+.footerPage {
+    background: #A3A3A3;
+    text-align: center;
+    padding: 15px 0px 15px 0px;
+}
+
+/*css process modal -  processing-modal*/
+.modal-static {
+    position: fixed;
+    top: 50% !important;
+    left: 50% !important;
+    margin-top: -100px;
+    margin-left: -100px;
+    overflow: visible !important;
+}
+
+    .modal-static,
+    .modal-static .modal-dialog,
+    .modal-static .modal-content {
+        width: 200px;
+        height: 70px;
+    }
+
+        .modal-static .modal-dialog,
+        .modal-static .modal-content {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+            .modal-static .modal-content .icon {
+                width: 40px;
+                height: 40px;
+            }
+
+.modal-text {
+    text-align: center;
+    font-weight: bold;
+}
+
+
+
+@media (min-width: 768px) {
+    body {
+        padding-top: 130px !important;
+    }
+
+    div.navbar-header {
+        display: none;
+    }
+
+    #navMenu .navbar-collapse {
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+    }
+
+    #navHeaderTitle a {
+        font-size: 56px;
+    }
 }

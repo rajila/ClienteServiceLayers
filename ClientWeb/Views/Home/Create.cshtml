@@ -10,31 +10,33 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formData" }))
 {
     @Html.AntiForgeryToken()
+
+    @Html.Partial("ModelWaitMoment")
 
     <div class="form-horizontal">
         <hr />
 
-        @if ( ViewBag._statusSave != null && !ViewBag._statusSave )
+        @if (ViewBag._statusSave != null && !ViewBag._statusSave)
         {
-        <div class="alert alert-danger alert-dismissible show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <span><strong>@ViewBag._messageSave</strong></span><br />
-            <ul>
-                @if (ViewBag._messageSaveBody != null)
-                {
-                    foreach (var item in ViewBag._messageSaveBody)
+            <div class="alert alert-danger alert-dismissible show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <span><strong>@ViewBag._messageSave</strong></span><br />
+                <ul>
+                    @if (ViewBag._messageSaveBody != null)
                     {
-                        <li>@item</li>
+                        foreach (var item in ViewBag._messageSaveBody)
+                        {
+                            <li>@item</li>
+                        }
                     }
-                }
-           </ul>
-        @Html.ValidationSummary()
-        </div>
+                </ul>
+                @Html.ValidationSummary()
+            </div>
         }
 
         <div class="form-group">
@@ -111,7 +113,7 @@
         <div class="form-group text-center">
             <div class="col-md-offset-2 col-md-10">
                 @Html.ActionLink("Atrás", "Index", null, new { @class = "btn btn-primary" })
-                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary" onclick="ModelCustom.showModelSpecial();" />
             </div>
         </div>
     </div>
@@ -129,5 +131,24 @@
         $(document).ready(function () {
             _dataTable.init("idTableAsegurado", "btnAddElementTable", "", ['dniDATA', 'nombreDATA', 'telefonoDATA', 'llamarDATA', 'fechaDATA']);
         });
+
+        var ModelCustom = {
+            showModel: function () {
+                $("#processing-modal").modal("show");
+                return true;
+            },
+
+            showModelSpecial: function () {
+                $("#processing-modal").modal("show");
+                var _form = $("#formData");
+                var _isvalid = _form.valid()
+                if (!_isvalid) ModelCustom.hideModel();
+            },
+
+            hideModel: function () {
+                $("#processing-modal").modal("hide");
+                return true;
+            }
+        }
     </script>
 }
