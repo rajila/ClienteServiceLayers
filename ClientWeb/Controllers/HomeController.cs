@@ -15,6 +15,10 @@ namespace ClientWeb.Controllers
     {
         public ActionResult Index(string name, string currentFilter, int? page)
         {
+            WSTest.WSBridge _ws = new WSTest.WSBridge();
+            ViewBag.msnWS = _ws.getMessage("ss");
+            TempData["msnWS"] = _ws.getMessage("ss");
+
             // Valores definidos en la acción Save
             ViewBag._statusSave = TempData["_statusSave"];
             if (ViewBag._statusSave != null && ViewBag._statusSave)

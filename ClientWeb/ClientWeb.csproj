@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -176,7 +177,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Properties\PublishProfiles\ClientWebDebug.pubxml" />
+    <None Include="Properties\PublishProfiles\clientWebDebug.pubxml" />
+    <None Include="Properties\PublishProfiles\clientWebRelease.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Business\Task\AseguradoEdit.js" />
     <Content Include="Scripts\Business\Task\DataTableAsegurado.js" />
@@ -215,6 +217,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="lib\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +245,10 @@
     <ProjectReference Include="..\Validations\Validations.csproj">
       <Project>{06cbbb15-0c72-44d5-83d3-2dc0e48db7fe}</Project>
       <Name>Validations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WSTest\WSTest.csproj">
+      <Project>{dbd45e62-db8a-4082-a404-c7a3775dc964}</Project>
+      <Name>WSTest</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
